@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1734716086939,
+      "tag": "0000_perfect_silk_fever",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1734717596458,
+      "tag": "0001_sudden_doomsday",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1735023381131,
+      "tag": "0002_ancient_gladiator",
+      "breakpoints": true
+    }
+  ]
+}
