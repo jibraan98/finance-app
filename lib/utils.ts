@@ -70,19 +70,35 @@ type Period = {
   to: string | Date | undefined;
 }
 
-export function formatDateRange (period?: Period) {
+export function formatDateRange(period?: Period) {
   const defaultTo = new Date();
   const defaultFrom = subDays(defaultTo, 30);
 
-  if (!period?.from) {
+  // Helper function to parse and validate dates
+  const parseDate = (date: string | Date | undefined): Date => {
+    if (!date) return new Date(); // Fallback to current date if undefined
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate.getTime())) {
+      throw new Error(`Invalid date: ${date}`);
+    }
+    return parsedDate;
+  };
+
+  try {
+    // Use defaults if period.from is missing
+    const from = period?.from ? parseDate(period.from) : defaultFrom;
+    const to = period?.to ? parseDate(period.to) : defaultTo;
+
+    if (period?.to) {
+      return `${format(from, "LLL dd")} - ${format(to, "LLL dd, y")}`;
+    }
+
+    return format(from, "LLL dd, y");
+  } catch (error) {
+    console.error(error);
+    // Fallback to default range if there's an error
     return `${format(defaultFrom, "LLL dd")} - ${format(defaultTo, "LLL dd, y")}`;
   }
-
-  if (period.to) {
-    return `${format(period.from, "LLL dd")} - ${format(period.to, "LLL dd, y")}`;
-  }
-
-  return format(period.from, "LLL dd, y");
 }
 
 export function formatPercentage(value: number, options: { addPrefix?: boolean} = { addPrefix: false}) {
